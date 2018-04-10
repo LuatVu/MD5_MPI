@@ -1,5 +1,7 @@
+
 Project Structure contains: 
-    1, generateMD5.c  // using to generate MD5 Hash. 
+    1, generateMD5.c 
+                    // using to generate MD5 Hash. 
                     // to compile: gcc generateMD5.c -o generateMD5 -I./ MD5.c -lm
                     // to run: ./generateMD5 [key_lenght] [key]
                     // [] is argument user pass.
@@ -18,7 +20,7 @@ Project Structure contains:
                                                                                 compute-0-1
                                                                                 compute-0-2
                                                                                 cluster
-                                For detail step by step, you can access follow link: http://www.rocksclusters.org/assets/usersguides/roll-documentation/hpc/6.2/
+                                For detail step by step, you can access follow link:                                       http://www.rocksclusters.org/assets/usersguides/roll-documentation/hpc/6.2/
 
                                 command to run on multi computer:
                                 mpirun -np [number_process] -machinefile machines Main2_5 [key_length] [message_digest]
