@@ -7,6 +7,7 @@
 #include <mpi.h>
 #include <stdio.h>
 #include <MD5.h>
+#include <time.h>
 
 #define tag_1 1
 #define tag_2 2
@@ -31,9 +32,7 @@ int main(int argc, char **argv){
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     gethostname(hostname, 50);
 
-    printf("\n");
     printf("Rank: %d, host: %s\n", rank, hostname);
-    printf("\n");
     
     // phan du lieu dau vao
     int key_length; 
@@ -42,19 +41,22 @@ int main(int argc, char **argv){
    
     int *MD5_hash = HexaToDecimal_Msg(argv[2]);
 
-
+    clock_t time_start;
+    time_start = clock();
     if(rank == 0){
        
         rank0(MD5_hash, key_length);
-
+	
     }else{
 
         ranki(MD5_hash, key_length);
 
     }   
-            
+    
     MPI_Finalize();
-
+   
+    double time_taken = ((double)(clock() - time_start))/CLOCKS_PER_SEC;
+    printf("Time to execute: %f on rank%d\n", time_taken, rank);
     return 0;
 }
 
@@ -69,7 +71,11 @@ void displayKey(char *key){
 }
 
 char *rank0(int *msg, int key_length){
-    char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
+//    char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
+//    char alphabet[] = "0123456789";
+    char alphabet[] = "0123456789abcdefghijklmnopqrstuvwxyz";
+//    char alphabet[] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     int alpha_length = sizeof(alphabet)-1;// eliminate element '\0'
 
     int np, ne; //np: number of process, ne: number of element.
